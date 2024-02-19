@@ -1,4 +1,4 @@
-package cp.week8;
+package cp.week9;
 
 public class StreamExercise2
 {
