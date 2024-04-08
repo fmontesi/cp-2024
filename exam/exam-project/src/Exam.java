@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 /*
-This is the exam for DM584 - Concurrent Programming, Spring 2024.
+This is the reexam for DM563 - Concurrent Programming, Spring 2022.
 
 Your task is to implement the following methods of class Exam:
-- findWordsUniqueToALine;
-- lineWithMostA;
+- findWordsCommonToAllLines;
+- shortestLine;
 - wordWithConsonants;
-- wordsWithSubstring.
+- wordsStartingWith.
 
 These methods search text files for particular words.
 You must use a BreakIterator to identify words in a text file,
@@ -28,46 +28,46 @@ proceeding on to the implementation.
 
 You can find a complete explanation of the exam rules at the following webpage.
 
-https://github.com/fmontesi/cp-2024/tree/main/exam
+https://github.com/fmontesi/cp2022/tree/main/reexam
 */
 public class Exam {
 	// Do not change this method
 	public static void main(String[] args) {
 		checkArguments(args.length > 0,
-				"You must choose a command: help, uniqueWords, lineWithMostA, consonants, or substring.");
+				"You must choose a command: help, allLines, shortestLine, consonants, or prefix.");
 		switch (args[0]) {
 			case "help":
 				System.out.println(
-						"Available commands: help, uniqueWords, lineWithMostA, consonants, or substring.\nFor example, try:\n\tjava Exam uniqueWords data");
+						"Available commands: help, allLines, shortestLine, consonants, or prefix.\nFor example, try:\n\tjava Exam allLines data");
 				break;
-			case "uniqueWords":
-				checkArguments(args.length == 2, "Usage: java Exam.java uniqueWords <directory>");
-				List<LocatedWord> uniqueWords = findWordsUniqueToALine(Paths.get(args[1]));
+			case "allLines":
+				checkArguments(args.length == 2, "Usage: java Exam.java allLines <directory>");
+				List<LocatedWord> uniqueWords = findWordsCommonToAllLines(Paths.get(args[1]));
 				System.out.println("Found " + uniqueWords.size() + " words");
 				uniqueWords.forEach( locatedWord ->
-                             System.out.println( locatedWord.word + ":" + locatedWord.filepath + ":" + locatedWord.line) );
+					System.out.println( locatedWord.word + ":" + locatedWord.filepath ) );
 				break;
-			case "lineWithMostA":
-				checkArguments(args.length == 2, "Usage: java Exam.java lineWithMostA <directory>");
-				Location location = lineWithMostA(Paths.get(args[1]));
-				System.out.println("Line with most occurrences of A found at " + location.filepath + ":" + location.line );
+			case "shortestLine":
+				checkArguments(args.length == 2, "Usage: java Exam.java shortestLine <directory>");
+				Location location = shortestLine(Paths.get(args[1]));
+				System.out.println("Line with highest number of letters found at " + location.filepath + ":" + location.line );
 				break;
 			case "consonants":
 				checkArguments(args.length == 3, "Usage: java Exam.java consonants <directory> <consonants>");
 				int consonants = Integer.parseInt(args[2]);
 				Optional<LocatedWord> word = wordWithConsonants(Paths.get(args[1]), consonants);
 				word.ifPresentOrElse(
-                             locatedWord -> System.out.println("Found " + locatedWord.word + " in " + locatedWord.filepath + ":" + locatedWord.line),
+						locatedWord -> System.out.println("Found " + locatedWord.word + " in " + locatedWord.filepath),
 						() -> System.out.println("No word found with " + args[2] + " consonants." ) );
 				break;
-			case "substring":
-				checkArguments(args.length == 4, "Usage: java Exam.java substring <directory> <substring> <length>");
+			case "prefix":
+				checkArguments(args.length == 4, "Usage: java Exam.java prefix <directory> <prefix> <length>");
 				int length = Integer.parseInt(args[3]);
-				List<LocatedWord> words = wordsWithSubstring(Paths.get(args[1]), args[2], length);
+				List<LocatedWord> words = wordsStartingWith(Paths.get(args[1]), args[2], length);
 				if( words.size() > length ) {
-					System.out.println( "WARNING: Implementation of wordsWithSubstring computes more than " + args[3] + " words!" );
+					System.out.println( "WARNING: Implementation of wordsStartingWith computes more than " + args[3] + " words!" );
 				}
-				words.forEach(loc -> System.out.println(loc.word + ":" + loc.filepath + ":" + loc.line));
+				words.forEach(loc -> System.out.println(loc.word + ":" + loc.filepath));
 				break;
 			default:
 				System.out.println("Unrecognised command: " + args[0] + ". Try java Exam.java help.");
@@ -83,7 +83,7 @@ public class Exam {
 	}
 
 	/**
-	 * Return the unique words of all the files contained in the given directory: the unique words of a file are those that appear only on a single line (out of all the lines of a file).
+	 * Returns the words that appear on every line of a text file contained in the given directory.
 	 *
 	 * This method recursively visits a directory to find text files contained in it
 	 * and its subdirectories (and the subdirectories of these subdirectories,
@@ -94,11 +94,10 @@ public class Exam {
 	 *
 	 * The method should return a list of LocatedWord objects (defined by the class
 	 * at the end of this file), where each LocatedWord object should consist of:
-	 * - a word appearing only on one line of the file;
-	 * - the line containing such word;
-	 * - the path to the file containing such line.
+	 * - a word appearing in every line of a file
+	 * - the path to the file containing such word.
 	 *
-	 * All words appearing only on a single line of some file must appear in the list: words
+	 * All words appearing on every line of some file must appear in the list: words
 	 * that can be in the list must be in the list.
 	 *
 	 * Words must be considered equal without considering differences between
@@ -106,13 +105,13 @@ public class Exam {
 	 * "HELLo" must be considered equal to the word "hello".
 	 *
 	 * @param dir the directory to search
-	 * @return a list of words that, within a file inside dir, appear on only one line
+	 * @return a list of words that, within a file inside dir, appear on every line
 	 */
-	private static List<LocatedWord> findWordsUniqueToALine(Path dir) {
+	private static List<LocatedWord> findWordsCommonToAllLines(Path dir) {
 		throw new UnsupportedOperationException(); // Remove this once you implement the method
 	}
 
-	/** Returns the line with the highest number of occurrences of the letter 'a' among all the lines
+	/** Returns the line with the highest number of letters among all the lines
 	 * present in the text files contained in a directory.
 	 *
 	 * This method recursively visits a directory to find all the text files
@@ -122,17 +121,17 @@ public class Exam {
 	 * You must consider only files ending with a ".txt" suffix. You are
 	 * guaranteed that they will be text files.
 	 *
-	 * The method should return the line which counts the highest number of occurrences of the letter 'a' (counting also 'A') found among all text files.
-	 * If multiple lines are identified as longest, the method should return
-	 * the one that belongs to the file whose name precedes the filename of the other longest line
+	 * The method should return the shortest line (counting only letters) found among all text files.
+	 * If multiple lines are identified as shortest, the method should return
+	 * the one that belongs to the file whose name precedes the filename of the other shortest line
 	 * lexicographically, or if the filename is the same, the line which comes first in the file.
 	 * To compare strings lexicographically, you can use String::compareTo.
 	 * See also https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#compareTo(java.lang.String)
 	 *
 	 * @param dir the directory to search
-	 * @return the line with the highest number of occurrences of 'a' found among all text files inside of dir
+	 * @return the line with the highest number of letters found among all text files inside of dir
 	 */
-	private static Location lineWithMostA(Path dir) {
+	private static Location shortestLine(Path dir) {
 		throw new UnsupportedOperationException(); // Remove this once you implement the method
 	}
 
@@ -150,10 +149,9 @@ public class Exam {
 	 * The method should return an (optional) LocatedWord object (defined by the
 	 * class at the end of this file), consisting of:
 	 * - the word found that contains as many consonants as specified by the parameter n (and no more);
-	 * - the line containing such word;
-	 * - the path to the file containing such line.
+	 * - the path to the file containing the word.
 	 *
-	 * You can consider a letter to be a consonant according to the English alphabet.
+	 * You can consider a letter to be a consonant according to either English or Danish.
 	 *
 	 * If a word satisfying the description above can be found, then the method
 	 * should return an Optional containing the desired LocatedWord. Otherwise, if
@@ -171,7 +169,7 @@ public class Exam {
 		throw new UnsupportedOperationException(); // Remove this once you implement the method
 	}
 
-	/** Returns a list of words found in the given directory having the given string as a substring starting from the character at index two.
+	/** Returns a list of words found in the given directory starting with the given prefix.
 	 *
 	 * This method recursively visits a directory to find text files
 	 * contained in it and its subdirectories (and the subdirectories of these
@@ -182,9 +180,8 @@ public class Exam {
 	 *
 	 * The method should return a list of LocatedWord objects (defined by the
 	 * class at the end of this file), consisting of:
-	 * - the word that contains the given string as substring starting from index 2;
-	 * - the line containing such word;
-	 * - the path to the file containing such line.
+	 * - the word found that starts with the given prefix;
+	 * - the path to the file containing the word.
 	 *
 	 * The size of the returned list must not exceed the given limit.
 	 * Therefore, this method should return *as soon as possible*: if the list
@@ -193,29 +190,38 @@ public class Exam {
 	 * should not be analysed.
 	 *
 	 * @param dir the directory to search
-	 * @param substring the substring to be searched for
+	 * @param prefix the prefix to be searched for
 	 * @param limit the size limit for the returned list
-	 * @return a list of words containing the given substring starting at string index 2
+	 * @return a list of locations where the given prefix has been found
 	 */
-	private static List<LocatedWord> wordsWithSubstring(Path dir, String substring, int limit) {
+	private static List<LocatedWord> wordsStartingWith(Path dir, String prefix, int limit) {
 		throw new UnsupportedOperationException(); // Remove this once you implement the method
 	}
 
 	// Do not change this class
-	private record LocatedWord(
-		String word, // the word
-		int line, // the line where the word has been found
-		Path filepath // the file where the word has been found
-	) {}
+	private static class LocatedWord {
+		private final String word; // the word
+		private final Path filepath; // the file where the word has been found
+
+		private LocatedWord(String word, Path filepath) {
+			this.word = word;
+			this.filepath = filepath;
+		}
+	}
 
 	// Do not change this class
-	private record Location(
-		Path filepath, // the file where the word has been found
-		int line // the line number at which the word has been found
-	) {}
+	private static class Location {
+		private final Path filepath; // the file where the word has been found
+		private final int line; // the line number at which the word has been found
+
+		private Location(Path filepath, int line) {
+			this.filepath = filepath;
+			this.line = line;
+		}
+	}
 
 	// Do not change this class
-	private final static class InternalException extends RuntimeException {
+	private static class InternalException extends RuntimeException {
 		private InternalException(String message) {
 			super(message);
 		}
