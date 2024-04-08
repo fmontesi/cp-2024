@@ -1,13 +1,13 @@
-# ReExam
+# Exam
 
-To pass the course, you have to hand in a single Java file called `Exam.java`. Instructions on how to hand in will be published soon and you will be notified with an announcement on ITS Learning. This is not a group project: every student must work on their own assignment by themselves. An assignment will be opened for handing in the project, with deadline **29 August 2022** at 09:00 AM (local time). Detailed instructions are given below.
+To pass the course, you have to hand in a single Java file called `Exam.java`. Instructions on how to hand in will be published soon and you will be notified with an announcement on ITS Learning. This is not a group project: every student must work on their own assignment by themselves. An assignment will be opened for handing in the project, with deadline **31 May 2024** at 16:00 (local time). Detailed instructions are given below.
 
-You can find a list of common mistakes that people do in the exam for this course in [common mistakes](https://github.com/fmontesi/cp2022/blob/main/reexam/common-mistakes.md). Please read it after reading the following instructions.
+You can find a list of common mistakes that people do in the exam for this course in [common mistakes](https://github.com/fmontesi/cp-2024/blob/main/exam/common-mistakes.md). Please read it after reading the following instructions.
 
 ## Instructions
 
 To prepare for the exam, follow these steps.
-- Download the file `Exam.java` from here: <https://raw.githubusercontent.com/fmontesi/cp2022/main/reexam/exam-project/src/Exam.java>
+- Download the file `Exam.java` from here: <https://raw.githubusercontent.com/fmontesi/cp-2024/main/exam/exam-project/src/Exam.java>
 - Read the content of `Exam.java`, which describes the task that you have to complete to pass the exam. You will find in particular a few methods that throw `UnsupportedOperationException`: you have to remove the throw instruction and implement those methods by following their documentation.
 
 To complete the exam, you have to edit the file `Exam.java` as requested by the instructions.
@@ -19,18 +19,18 @@ As described in `Exam.java`, your task is to implement a few methods of class `E
 - You must hand in exactly one file, that is, `Exam.java`. Do not upload any other files, and do not put the file inside of any directory. Just upload that single file. If you have comments regarding your code, put them as Java comments in the methods that you implemented inside of `Exam.java`.
 - Including external libraries is forbidden: you can only use the Java standard library.
 
-You are welcome to create additional methods to structure your project, and also to create additional classes as long as they are in the same `Exam.java` file.
+You are welcome to create additional methods to structure your project, and also to create additional classes as long as they are in the same `Exam.java` file. **Do not create other files: your project must consist only of the file `Exam.java` that you write.**
 
 ## Testing
 
 Class `Exam` comes with a `main` method that implements a simple command line interface, which allows you to test your methods.
-From the directory where you have stored `Exam.java`, run `java Exam help` to check whether you set up is working. (There is no need to compile it if you are using Java 11 or above.)
+From the directory where you have stored `Exam.java`, run `java Exam.java help` to check whether you set up is working. (There is no need to compile it if you are using Java 11 or above.)
 
-The methods that you have to implement have to search for text files in a directory. To test your project, you can use the directory `data` inside of this zip file: <https://raw.githubusercontent.com/fmontesi/cp2022/main/reexam/data.zip>. For example, you can unzip `data.zip` in the same directory where you have your `Exam.java` file and launch from that directory the command `java Exam allLines data`. The directory that I will use in the evaluation will follow the same format, but it will be different.
+The methods that you have to implement have to search for text files in a directory. To test your project, you can use the directory `data` inside of this zip file: <https://raw.githubusercontent.com/fmontesi/cp-2024/main/exam/data.zip>. For example, you can unzip `data.zip` in the same directory where you have your `Exam.java` file and launch from that directory the command `java Exam.java allLines data`. The directory that I will use in the evaluation will follow the same format, but it will be different.
 
 ## Other remarks
 
-You can use any IDE or editor you like during the development, as long as all you hand in is just `Exam.java` and the file keeps working by itself by invoking `java Exam` from the command line. No project files or similar can be uploaded.
+You can use any IDE or editor you like during the development, as long as all you hand in is just `Exam.java` and the file keeps working by itself by invoking `java Exam.java` from the command line. No project files or similar can be uploaded.
 
 When you start implementing a method in `Exam`, remove the `throw new UnsupportedOperationException();` line from it first. If you do not manage to
 implement a method, then keep that line instead so that I know you chose not
