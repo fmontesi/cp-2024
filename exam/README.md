@@ -21,6 +21,14 @@ As described in `Exam.java`, your task is to implement a few methods of class `E
 
 You are welcome to create additional methods to structure your project, and also to create additional classes as long as they are in the same `Exam.java` file. **Do not create other files: your project must consist only of the file `Exam.java` that you write.**
 
+### Allowed concurrency strategies
+
+Some of the methods that you have to implement come with restrictions on what strategy you can follow, which is pointed out in the comment right above the method definition (right after 'Allowed concurrency strategy').
+They are to be interpreted quite literally:
+- All: you can use any concurrency strategy.
+- Parallel streams: you must use streams (that work in parallel) to solve the exercise.
+- Virtual threads: you must use virtual threads to solve the exercise.
+
 ## Testing
 
 Class `Exam` comes with a `main` method that implements a simple command line interface, which allows you to test your methods.
