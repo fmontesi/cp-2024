@@ -83,7 +83,7 @@ public class Exam {
 	}
 
 	/**
-	 * Return the unique words of all the files contained in the given directory: the unique words of a file are those that appear only on a single line (out of all the lines of a file).
+	 * Return the unique words of all the files contained in the given directory: the unique words of a file are those that appear only once in that file. This means that a unique word appears only in one of the lines of the file, and it is not repeated in that line.
 	 *
 	 * This method recursively visits a directory to find text files contained in it
 	 * and its subdirectories (and the subdirectories of these subdirectories,
@@ -102,8 +102,11 @@ public class Exam {
 	 * that can be in the list must be in the list.
 	 *
 	 * Words must be considered equal without considering differences between
-	 * uppercase and lowercase letters. For example, the words "Hello", "hEllo" and
+	 * uppercase and lowercase letters. (Case insensitive.) For example, the words "Hello", "hEllo" and
 	 * "HELLo" must be considered equal to the word "hello".
+	 * 
+	 * 
+	 * Allowed concurrency strategies: all.
 	 *
 	 * @param dir the directory to search
 	 * @return a list of words that, within a file inside dir, appear on only one line
@@ -123,11 +126,11 @@ public class Exam {
 	 * guaranteed that they will be text files.
 	 *
 	 * The method should return the line which counts the highest number of occurrences of the letter 'a' (counting also 'A') found among all text files.
-	 * If multiple lines are identified as longest, the method should return
-	 * the one that belongs to the file whose name precedes the filename of the other longest line
-	 * lexicographically, or if the filename is the same, the line which comes first in the file.
+	 * If multiple lines are identified as having the highest number in the same file, just return the line that comes first. If two files have lines with the same (highest) number, then return the file whose filepath comes first lexicographically. (Use the full path, or 'absolute path' in Java, or you will not compare correctly files with the same name in different directories.)
 	 * To compare strings lexicographically, you can use String::compareTo.
 	 * See also https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#compareTo(java.lang.String)
+	 * 
+	 * Allowed concurrency strategy: parallel streams.
 	 *
 	 * @param dir the directory to search
 	 * @return the line with the highest number of occurrences of 'a' found among all text files inside of dir
@@ -149,7 +152,7 @@ public class Exam {
 	 *
 	 * The method should return an (optional) LocatedWord object (defined by the
 	 * class at the end of this file), consisting of:
-	 * - the word found that contains as many consonants as specified by the parameter n (and no more);
+	 * - the word found that contains as many consonants as specified by the parameter numberOfConsonants (and no more);
 	 * - the line containing such word;
 	 * - the path to the file containing such line.
 	 *
@@ -163,15 +166,18 @@ public class Exam {
 	 * word is found, the method should return a result without waiting for the
 	 * processing of remaining files and/or other data.
 	 *
+	 * 
+	 * Allowed concurrency strategies: all.
+	 * 
 	 * @param dir the directory to search
-	 * @param consonants the number of consonants the word must contain
+	 * @param numberOfConsonants the number of consonants the word must contain
 	 * @return an optional LocatedWord about a word containing exactly n consonants
 	 */
-	private static Optional<LocatedWord> wordWithConsonants(Path dir, int consonants) {
+	private static Optional<LocatedWord> wordWithConsonants(Path dir, int numberOfConsonants) {
 		throw new UnsupportedOperationException(); // Remove this once you implement the method
 	}
 
-	/** Returns a list of words found in the given directory having the given string as a substring starting from the character at index two.
+	/** Returns a list of words found in the given directory having the given string as a substring.
 	 *
 	 * This method recursively visits a directory to find text files
 	 * contained in it and its subdirectories (and the subdirectories of these
@@ -182,7 +188,7 @@ public class Exam {
 	 *
 	 * The method should return a list of LocatedWord objects (defined by the
 	 * class at the end of this file), consisting of:
-	 * - the word that contains the given string as substring starting from index 2;
+	 * - the word that contains the given substring;
 	 * - the line containing such word;
 	 * - the path to the file containing such line.
 	 *
@@ -191,11 +197,14 @@ public class Exam {
 	 * reaches the given limit at any point during the computation, no more
 	 * elements should be added to the list and remaining files and/or other lines
 	 * should not be analysed.
+	 * 
+	 * 
+	 * Allowed concurrency strategy: virtual threads.
 	 *
 	 * @param dir the directory to search
 	 * @param substring the substring to be searched for
 	 * @param limit the size limit for the returned list
-	 * @return a list of words containing the given substring starting at string index 2
+	 * @return a list of words containing the given substring
 	 */
 	private static List<LocatedWord> wordsWithSubstring(Path dir, String substring, int limit) {
 		throw new UnsupportedOperationException(); // Remove this once you implement the method
