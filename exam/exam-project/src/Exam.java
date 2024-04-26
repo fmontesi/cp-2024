@@ -101,7 +101,7 @@ public class Exam {
 	 * All words appearing only on a single line of some file must appear in the list: words
 	 * that can be in the list must be in the list.
 	 * 
-	 * Note that a word does not need to be unique to *all* files, just to a file. So if a word, say "Hello", appears only once in two files "f1.txt" and "f2.txt", then the list should contain two entries (one for each occurrence of Hello in the two files).
+	 * Note that a word does not need to be unique to *all* files, just to a file. So if a word, say "Hello", appears exactly once in a file "f1.txt" and also in another file "f2.txt", then the list should contain two entries (one for each occurrence of Hello in the two files).
 	 *
 	 * Words must be considered equal without considering differences between
 	 * uppercase and lowercase letters. (Case insensitive.) For example, the words "Hello", "hEllo" and
