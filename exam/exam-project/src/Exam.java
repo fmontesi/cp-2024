@@ -83,7 +83,7 @@ public class Exam {
 	}
 
 	/**
-	 * Return the unique words of all the files contained in the given directory: the unique words of a file are those that appear only once in that file. This means that a unique word appears only in one of the lines of the file, and it is not repeated in that line.
+	 * Return the unique words for each file contained in the given directory: the unique words of a file are those that appear only once in that file. This means that a unique word appears only in one of the lines of the file, and it is not repeated in that line.
 	 *
 	 * This method recursively visits a directory to find text files contained in it
 	 * and its subdirectories (and the subdirectories of these subdirectories,
@@ -100,6 +100,8 @@ public class Exam {
 	 *
 	 * All words appearing only on a single line of some file must appear in the list: words
 	 * that can be in the list must be in the list.
+	 * 
+	 * Note that a word does not need to be unique to *all* files, just to a file. So if a word, say "Hello", appears only once in two files "f1.txt" and "f2.txt", then the list should contain two entries (one for each occurrence of Hello in the two files).
 	 *
 	 * Words must be considered equal without considering differences between
 	 * uppercase and lowercase letters. (Case insensitive.) For example, the words "Hello", "hEllo" and
