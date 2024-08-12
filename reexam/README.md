@@ -26,6 +26,7 @@ You are welcome to create additional methods to structure your project, and also
 Some of the methods that you have to implement come with restrictions on what strategy you can follow, which is pointed out in the comment right above the method definition (right after 'Allowed concurrency strategy').
 They are to be interpreted quite literally:
 - All: you can use any concurrency strategy.
+- Executors, completion services, and futures (including any combination of these strategies): you must use executors, completion services, and/or futures (futures that you get from these, other APIs likes CompletableFuture, or even your own self-baked framework) to solve the exercise. This basically excludes using parallel streams or threads (virtual or platform ones) without executors or futures.
 - Parallel streams: you must use streams (that work in parallel) to solve the exercise.
 - Virtual threads: you must use virtual threads to solve the exercise.
 
